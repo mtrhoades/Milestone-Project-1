@@ -24,6 +24,47 @@ for (let i =0; i < 8; i++) {
         } else {
             cell.setAttribute('class', 'cell blackcell'); // Setting two classes for all black cells: cell & blackcell.
             row.appendChild(cell); // Appending the cells to the rows.
+
+            // Adding new morty playable character: (8 of them)
+            function mortyHead(url) {
+                let image = document.createElement('img');
+                image.setAttribute('id', 'mortyHead')
+                image.src = url;
+                if (j === 0) {
+                    cell.appendChild(image);
+                    return image
+                } else if (j === 1) {
+                    cell.appendChild(image);
+                    return image
+                } else if (j === 2) {
+                    cell.appendChild(image);
+                    return image
+                }
+            }
+            mortyHead('./assets/mortyhead3.png')
+
+            // Adding new rick playable character: (8 of them)
+            function rickHead(url) {
+                let image = document.createElement('img');
+                image.setAttribute('id', 'rickHead')
+                image.src = url;
+                if (j === 7) {
+                    cell.appendChild(image);
+                    return image
+                } else if (j === 6) {
+                    cell.appendChild(image);
+                    return image
+                } else if (j === 5) {
+                    cell.appendChild(image);
+                    return image
+                }
+            }
+            rickHead('./assets/rickhead5.png')
+
+            // ********************************************************************************
+            // ***** ADD FUNCTION FOR NO HEAD IMAGE FOR BLANK SPACES TO START THE GAME WITH.
+            // ***** MAKE SURE ALL CELLS HOLD THE SAME SIZE TO MAKE BOARD CONSISTENT.
+
         }
     }
     checkersBoard.appendChild(row); // Appending the rows to the checkers board.
