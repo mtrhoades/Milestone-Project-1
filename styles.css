@@ -1,3 +1,44 @@
+* {
+    margin: auto;
+    padding: 1em;
+}
+
 body {
-    background-color: aqua;
+    background-image: url("./assets/space.jpg");
+}
+h1 {
+    color: white;
+}
+.portal {
+    width: 800px;
+    height: 750px;
+    display: block;
+}
+.banner img {
+    display: block;
+    justify-content: center;
+    height: 250px;
+}
+
+
+/* Styling for the chessboard from code.js */
+.checkersBoard {
+    border: 1.5px solid green;
+}
+.cell {
+    height: 30px;
+    width: 30px;
+    border: 1.5px solid gray;
+    border-style: inset;
+}
+.blackcell {
+    background-color: black;
+}
+.bluecell {
+    background-color: #14c9e0;
+}
+
+/* Styling for Wubbah lubbah dub dub at the bottom of page */
+#funnyPhrase {
+    text-align: center;
 }
