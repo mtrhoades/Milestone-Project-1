@@ -10,9 +10,32 @@ h1 {
     color: white;
 }
 .portal {
-    width: 800px;
-    height: 750px;
+    width: 400px;
+    height: 475px;
     display: block;
+}
+h2 {
+    color: white;
+}
+.portal-img {
+    text-align: center;
+    position: relative;
+    top: 0;
+    left: 0;
+}
+#ricks {
+    display: block;
+    width: 200px;
+    position: absolute;
+    top: 220px;
+    left: 670px;
+}
+#mortys {
+    display: block;
+    width: 250px;
+    position: absolute;
+    top: 290px;
+    left: 875px;
 }
 .banner img {
     display: block;
@@ -20,14 +43,31 @@ h1 {
     height: 250px;
 }
 
+/* Table styling */
+table {
+    border: 1.5px solid green;
+}
 
-/* Styling for the chessboard from code.js */
+td {
+    background-color: #14c9e0;
+    width: 65px;
+    height: 65px;
+    text-align: center;
+}
+
+.noPieceHere {
+    background-color: black;
+}
+
+
+
+/* Styling for the chessboard from code.js
 .checkersBoard {
     border: 1.5px solid green;
 }
 .cell {
-    height: 30px;
-    width: 30px;
+    height: 90px;
+    width: 60px;
     border: 1.5px solid gray;
     border-style: inset;
 }
@@ -38,14 +78,16 @@ h1 {
     background-color: #14c9e0;
 }
 
+
+
 /* Styling for Wubbah lubbah dub dub at the bottom of page */
 #funnyPhrase {
     text-align: center;
 }
 
 #rickHead {
-    width: 80px;
+    width: 60px;
 }
 #mortyHead {
-    width: 80px;
-}
+    width: 60px;
+} */
