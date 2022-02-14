@@ -23,20 +23,6 @@ h2 {
     top: 0;
     left: 0;
 }
-#ricks {
-    display: block;
-    width: 200px;
-    position: absolute;
-    top: 220px;
-    left: 670px;
-}
-#mortys {
-    display: block;
-    width: 250px;
-    position: absolute;
-    top: 290px;
-    left: 875px;
-}
 .banner img {
     display: block;
     justify-content: center;
@@ -49,14 +35,50 @@ table {
 }
 
 td {
-    background-color: #14c9e0;
+    background-color: black;
     width: 65px;
     height: 65px;
     text-align: center;
+    border: 1px solid white;
 }
 
 .noPieceHere {
-    background-color: black;
+    background-color: #14c9e0;
+}
+
+.mortyHeadPiece {
+    width: 60px;
+}
+
+.rickHeadPiece {
+    width: 60px;
+}
+
+.kingMortyHead {
+    width: 60px;
+    background-color: purple;
+}
+
+.kingRickHead {
+    width: 60px;
+    background-color: yellowgreen;
+}
+
+.whoesTurn {
+    text-align: center;
+    display: flex;
+}
+
+.whoesTurn  p {
+    color: white;
+}
+
+.mortyTurnText {
+    color: white
+}
+
+.rickTurnText {
+    color: gray;
 }
 
 
@@ -85,9 +107,3 @@ td {
     text-align: center;
 }
 
-#rickHead {
-    width: 60px;
-}
-#mortyHead {
-    width: 60px;
-} */
