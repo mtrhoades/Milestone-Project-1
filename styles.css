@@ -36,8 +36,8 @@ table {
 
 td {
     background-color: black;
-    width: 65px;
-    height: 65px;
+    width: 80px;
+    height: 70px;
     text-align: center;
     border: 1px solid white;
 }
@@ -47,11 +47,22 @@ td {
 }
 
 .mortyHeadPiece {
-    width: 60px;
+    width: 20px;
+    height: 20px;
+    padding: 12px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 50px;
 }
 
 .rickHeadPiece {
-    width: 60px;
+    width: 20px;
+    height: 20px;
+    padding: 12px;
+    background-color: red;
+    border: 1px solid white;
+    border-radius: 50px;
+
 }
 
 .kingMortyHead {
@@ -66,7 +77,7 @@ td {
 
 .whoesTurn {
     text-align: center;
-    display: flex;
+    display: inline-flex;
 }
 
 .whoesTurn  p {
@@ -81,6 +92,14 @@ td {
     color: gray;
 }
 
+#mortyHead {
+    width: 60px;
+    height: 65px;
+}
+ #rickHead {
+     width: 60px;
+     height: 65px;
+ }
 
 
 /* Styling for the chessboard from code.js
