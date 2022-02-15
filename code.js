@@ -24,7 +24,7 @@ startButton.addEventListener('click', function() {
 
 // Make Array for checkers board.
 
-const checkersBoardArray = [
+const checkersBoard = [
     ['null', '0', 'null', '1', 'null', '2', 'null', '3'],
     ['4', 'null', '5', 'null', '6', 'null', '7', 'null'],
     ['null', '8', 'null', '9', 'null', '10', 'null', '11'],
@@ -36,16 +36,202 @@ const checkersBoardArray = [
 ];
 
 
+// Find each piece on board:
+let findPiece = function (pieceId) {
+    let parsed = parseInt(pieceId);
+    return checkersBoard.indexOf(parsed);
+};
 
+// DOM Selectors:
+const cells = document.querySelectorAll("td")
+let rickHeadPieces = document.querySelectorAll("p")
+let mortyHeadPieces = document.querySelectorAll("span")
+const rickTurnText = document.querySelectorAll(".rickTurnText")
+const mortyTurnText = document.querySelectorAll(".mortyTurnText")
+const divider = document.querySelector("#divider")
+
+
+// Player properties:
+let turn = true;
+let rickScore = 12;
+let mortyScore = 12;
+let playerPieces;
+
+// Create object to hold the properties of the pieces:
+let selectedPiece = {
+    pieceId: -1,
+    indexOfBoardPiece: -1,
+    isKing: false,
+    seventhSpace: false,
+    ninthSpace: false,
+    fourteenthSpace: false,
+    eighteenthSpace: false,
+    minusSeventhSpace: false,
+    minusNinthSpace: false,
+    minusFourteenthSpace: false,
+    minusEighteenthSpace: false
+}
+
+// Initialize event listeners on pieces:
+function addPiecesEventListener() {
+    if (turn) {
+        for (let i = 0; i < rickHeadPieces.length; i++) {
+            rickHeadPieces[i].addEventListener("click", getPlayerPieces);
+        }
+    } else {
+        for (let i = 0; i < mortyHeadPieces.length; i++) {
+            mortyHeadPieces[i].addEventListener("click", getPlayerPieces);
+        }
+    }
+}
+
+// Hold the length of players piece count:
+function getPlayerPieces() {
+    if (turn) {
+        playerPieces = rickHeadPieces;
+    } else {
+        playerPieces = mortyHeadPieces;
+    }
+    removeCellonclick();
+    resetBorders();
+}
+
+// Loop through all cells on the board
+function removeCellonclick() {
+    for (let i = 0; i < cells.length; i++) {
+        cells[i].removeAttribute("onclick");
+    }
+}
+
+// Reset borders to default:
+function resetBorders() {
+    for (let i = 0; i < playerPieces.length; i++) {
+        playerPieces[i].style.border = "1px solid white";
+    }
+    resetSelectedPieceProperties();
+    getSelectedPiece();
+}
+
+// Reset all properties of selected piece:
+function resetSelectedPieceProperties() {
+    selectedPiece.pieceId = -1;
+    selectedPiece.isKing = false;
+    selectedPiece.seventhSpace = false;
+    selectedPiece.ninthSpace = false;
+    selectedPiece.fourteenthSpace = false;
+    selectedPiece.eighteenthSpace = false;
+    selectedPiece.minusSeventhSpace = false;
+    selectedPiece.minusNinthSpace = false;
+    selectedPiece.minusFourteenthSpace = false;
+    selectedPiece.minusEighteenthSpace = false;
+}
+
+// Selects id and index of checkersboard array cell it is on:
+function getSelectedPiece() {
+    selectedPiece.pieceId = parseInt(event.target.id);
+    selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
+    isPieceKing();
+}
+
+// Make function for if the piece is king or not:
+function isPieceKing() {
+    if (document.getElementById(selectedPiece.pieceId).classList.contains("king")) {
+        selectedPiece.isKing = true;
+    } else {
+        selectedPiece.isKing = false;
+    }
+    getAvailableSpaces();
+}
+
+// Create function for getting available spaces to move piece to:
+function getAvailableSpaces() {
+    if (checkersBoard[selectedPiece.indexOfBoardPiece + 7] === null &&
+        cells[selectedPiece.indexOfBoardPiece + 7].classList.contains("noPieceHere") !== true) {
+            selectedPiece.seventhSpace = true;
+        }
+    if (checkersBoard[selectedPiece.indexOfBoardPiece + 9] === null &&
+        cells[selectedPiece.indexOfBoardPiece + 9].classList.contains("noPieceHere") !== true) {
+            selectedPiece.ninthSpace = true;
+        }
+    if (checkersBoard[selectedPiece.indexOfBoardPiece - 7] === null &&
+        cells[selectedPiece.indexOfBoardPiece - 7].classList.contains("noPieceHere") !== true) {
+            selectedPiece.minusSeventhSpace = true;
+        }
+    if (checkersBoard[selectedPiece.indexOfBoardPiece - 9] === null &&
+        cells[selectedPiece.indexOfBoardPiece - 9].classList.contains("noPieceHere") !== true) {
+            selectedPiece.minusNinthSpace = true;
+        }
+    checkAvailableJumpSpaces();
+}
+
+// Make function for finding available jump spaces:
+function checkAvailableJumpSpaces() {
+    if (turn) {
+        if (checkersBoard[selectedPiece.indexOfBoardPiece + 14] === null
+            && cells[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece + 7] >= 12) {
+                selectedPiece.fourteenthSpace = true;
+            }
+    } else {
+        if (checkersBoard[selectedPiece.indexOfBoardPiece + 14] === null
+            && cells[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece + 7] < 12 && checkersBoard[selectedPiece.indexOfBoardPiece + 7] !== null) {
+                selectedPiece.fourteenthSpace = true;
+            }
+    }
+    checkPieceConditions();
+}
+
+// Make function for checking if piece is king or not (restricts movement):
+function checkPieceConditions() {
+    if (selectedPiece.isKing) {
+        givePieceBorder();
+    } else {
+        if (turn) {
+            selectedPiece.minusSeventhSpace = false;
+            selectedPiece.minusNinthSpace = false;
+            selectedPiece.minusFourteenthSpace = false;
+            selectedPiece.minusEighteenthSpace = false;
+        } else {
+            selectedPiece.seventhSpace = false;
+            selectedPiece.ninthSpace = false;
+            selectedPiece.fourteenthSpace = false;
+            selectedPiece.eighteenthSpace = false;
+        }
+        givePieceBorder();
+    }
+}
+
+// Define givePieceBorder function for highlighting piece when it is selected:
+function givePieceBorder() {
+    if (selectedPiece.seventhSpace || selectedPiece.ninthSpace || selectedPiece.fourteenthSpace || selectedPiece.eighteenthSpace
+        || selectedPiece.minusSeventhSpace || selectedPiece.minusNinthSpace || selectedPiece.minusFourteenthSpace || selectedPiece.minusEighteenthSpace) {
+            document.getElementById(selectedPiece.pieceId).style.border = "3px solid green";
+            giveCellsClick();
+        } else {
+            return;
+        }
+}
+
+// Define function for giveCellsClick to give onclick attribute for selected pieces to move:
+
+
+
+
+// let mortyHeadArray = document.querySelectorAll(".mortyHeadPiece")
+
+// for (let i = 0; i < mortyHeadArray.length; i++) {
+//     let mortyImage = document.createElement('img');
+//     mortyImage.setAttribute('id', 'mortyHead')
+//     mortyImage.src = './assets/mortyhead3.png';
+//     let mortyBlackSquare = document.getElementsByTagName("id");
+//     mortyBlackSquare.appendChild(mortyImage);
+
+// }
 
 // // Appending the rick & morty head pieces to start the game.
 
-// // Mortys:
-//     let mortyImage1 = document.createElement('img');
-//     mortyImage1.setAttribute('id', 'mortyHead')
-//     mortyImage1.src = './assets/mortyhead3.png';
-//     let mortyBlackSquare = document.getElementById('20');
-//     mortyBlackSquare.appendChild(mortyImage1);
+// Mortys:
 
 //     let mortyImage2 = document.createElement('img');
 //     mortyImage2.setAttribute('id', 'mortyHead')
@@ -113,7 +299,7 @@ const checkersBoardArray = [
 //     let mortyBlackSquare12 = document.getElementById('31');
 //     mortyBlackSquare12.appendChild(mortyImage12);
 
-// // Ricks:
+// // // Ricks:
 
 // let rickImage1 = document.createElement('img');
 // rickImage1.setAttribute('id', 'mortyHead')
@@ -189,6 +375,26 @@ const checkersBoardArray = [
 
 
 
+
+
+// Adding Wubbah lubbah dub dub phrase at the bottom.
+const funnyPhrase = document.createElement('h2');
+funnyPhrase.setAttribute('id', 'funnyPhrase');
+funnyPhrase.textContent = "Wubbah lubbah dub dub!";
+funnyPhrase.style.color = "white";
+document.body.append(funnyPhrase);
+
+
+
+// Calling functions from above:
+addPiecesEventListener()
+
+
+
+
+// *************************************************************************************************************************
+// *************************************************************************************************************************
+// OLD CODE FOR CHECKERS BOARD AND APPENDING RICK AND MORTY HEAD PIECES:
 
 // // Create center tag to center the checkersBoard.
 // let center = document.createElement('center');
@@ -322,13 +528,3 @@ const checkersBoardArray = [
 // checkersBoard.setAttribute('width', '900px'); // Modifying the width altogether.
 // checkersBoard.setAttribute('height', '800px');
 // document.body.appendChild(center); // Appending the checkers board to the page (body).
-
-
-
-
-// Adding Wubbah lubbah dub dub phrase at the bottom.
-const funnyPhrase = document.createElement('h2');
-funnyPhrase.setAttribute('id', 'funnyPhrase');
-funnyPhrase.textContent = "Wubbah lubbah dub dub!";
-funnyPhrase.style.color = "white";
-document.body.append(funnyPhrase);
