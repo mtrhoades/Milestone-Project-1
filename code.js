@@ -49,11 +49,11 @@ let selectedPiece = {
     // below are all the possible moves that are available to each piece.
     seventhSpace: false, // Only can move 7 different spaces with any piece (per rick or morty) at the start of game.
     ninthSpace: false, // Only can move 9 different spaces with any piece (per rick or morty) when there is less enemy pieces on the board than started with.
-    fourteenthSpace: false, // ^ same thing as above but now with more available spaces to move, and less enemies.
+    fourteenthSpace: false, // ^ same thing as above but now with more available spaces to move with jumps, and less enemies.
     eighteenthSpace: false, // ^^
     minusSeventhSpace: false, // using minus now to go from the opposite end of the board, so mortys are negative (move upwards on board), ricks are positive (moves downwards on board).
     minusNinthSpace: false, // ^^ same logic but now with less enemies on the board, thus more available spaces to move pieces.
-    minusFourteenthSpace: false, // ^^
+    minusFourteenthSpace: false, // ^^ includes jumps.
     minusEighteenthSpace: false // ^^^
 }
 
@@ -115,7 +115,8 @@ function resetSelectedPieceProperties() {
 
 // Selects id and index of checkersboard array cell it is on:
 function getSelectedPiece() {
-    selectedPiece.pieceId = parseInt(event.target.id);
+    selectedPiece.pieceId = parseInt(this.event.target.id);
+    console.log(selectedPiece.pieceId)
     selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
     isPieceKing();
 }

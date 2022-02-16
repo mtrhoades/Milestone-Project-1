@@ -76,12 +76,12 @@ td {
 
 .kingMortyHead {
     width: 60px;
-    background-color: purple;
+    background-color: rgb(238, 9, 200);
 }
 
 .kingRickHead {
     width: 60px;
-    background-color: yellowgreen;
+    background-color: rgb(145, 211, 12);
 }
 
 p {
