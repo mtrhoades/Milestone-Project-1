@@ -7,7 +7,7 @@ funnyPhrase.style.color = "white";
 document.body.append(funnyPhrase);
 
     
-// Make Array for checkers board.
+// Make Array for checkers board. (mimics the table made in HTML.)
 const checkersBoard = [
     null, 0, null, 1, null, 2, null, 3,
     4, null, 5, null, 6, null, 7, null,
@@ -35,7 +35,7 @@ const mortyTurnText = document.querySelectorAll(".mortyTurnText")
 
 
 // Player properties:
-let turn = true;
+let turn = true; // So true === ricks turn, and false === mortys turn
 let rickScore = 12;
 let mortyScore = 12;
 let playerPieces;
@@ -46,17 +46,18 @@ let selectedPiece = {
     pieceId: -1,
     indexOfBoardPiece: -1,
     isKing: false,
-    seventhSpace: false,
-    ninthSpace: false,
-    fourteenthSpace: false,
-    eighteenthSpace: false,
-    minusSeventhSpace: false,
-    minusNinthSpace: false,
-    minusFourteenthSpace: false,
-    minusEighteenthSpace: false
+    // below are all the possible moves that are available to each piece.
+    seventhSpace: false, // Only can move 7 different spaces with any piece (per rick or morty) at the start of game.
+    ninthSpace: false, // Only can move 9 different spaces with any piece (per rick or morty) when there is less enemy pieces on the board than started with.
+    fourteenthSpace: false, // ^ same thing as above but now with more available spaces to move, and less enemies.
+    eighteenthSpace: false, // ^^
+    minusSeventhSpace: false, // using minus now to go from the opposite end of the board, so mortys are negative (move upwards on board), ricks are positive (moves downwards on board).
+    minusNinthSpace: false, // ^^ same logic but now with less enemies on the board, thus more available spaces to move pieces.
+    minusFourteenthSpace: false, // ^^
+    minusEighteenthSpace: false // ^^^
 }
 
-// Initialize event listeners on pieces:
+// Create event listeners on both ricks and mortys:
 function addPiecesEventListener() {
     if (turn) {
         for (let i = 0; i < rickHeadPieces.length; i++) {
@@ -119,7 +120,8 @@ function getSelectedPiece() {
     isPieceKing();
 }
 
-// Make function for if the piece is king or not:
+
+// Make function for if selected piece is king or not:
 function isPieceKing() {
     if (document.getElementById(selectedPiece.pieceId).classList.contains("king")) {
         selectedPiece.isKing = true;
@@ -221,13 +223,12 @@ function checkPieceConditions() {
 
 // Define givePieceBorder function for highlighting piece when it is selected:
 function givePieceBorder() {
-    if (selectedPiece.seventhSpace || selectedPiece.ninthSpace || selectedPiece.fourteenthSpace || selectedPiece.eighteenthSpace
-        || selectedPiece.minusSeventhSpace || selectedPiece.minusNinthSpace || selectedPiece.minusFourteenthSpace || selectedPiece.minusEighteenthSpace) {
+    if (selectedPiece.seventhSpace || selectedPiece.ninthSpace || selectedPiece.fourteenthSpace || selectedPiece.eighteenthSpace || selectedPiece.minusSeventhSpace || selectedPiece.minusNinthSpace || selectedPiece.minusFourteenthSpace || selectedPiece.minusEighteenthSpace) {
             document.getElementById(selectedPiece.pieceId).style.border = "3px solid green";
             giveCellsClick();
-        } else {
-            return;
-        }
+    } else {
+        return;
+    }
 }
 
 // Define function for giveCellsClick to give onclick attribute for selected pieces to move:
