@@ -8,7 +8,6 @@ document.body.append(funnyPhrase);
 
     
 // Make Array for checkers board.
-
 const checkersBoard = [
     null, 0, null, 1, null, 2, null, 3,
     4, null, 5, null, 6, null, 7, null,
@@ -27,13 +26,12 @@ let findPiece = function (pieceId) {
     return checkersBoard.indexOf(parsed);
 };
 
-// DOM Selectors:
+// Selectors:
 const cells = document.querySelectorAll("td")
 let rickHeadPieces = document.querySelectorAll("p")
 let mortyHeadPieces = document.querySelectorAll("span")
 const rickTurnText = document.querySelectorAll(".rickTurnText")
 const mortyTurnText = document.querySelectorAll(".mortyTurnText")
-const divider = document.querySelector("#divider")
 
 
 // Player properties:
@@ -41,6 +39,7 @@ let turn = true;
 let rickScore = 12;
 let mortyScore = 12;
 let playerPieces;
+
 
 // Create object to hold the properties of the pieces:
 let selectedPiece = {
@@ -265,7 +264,7 @@ function makeMove(number) {
     cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
     if (turn) {
         if (selectedPiece.isKing) {
-            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece-King" id="${selectedPiece.pieceId}"></p>`;
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece king" id="${selectedPiece.pieceId}"></p>`;
             rickHeadPieces = document.querySelectorAll("p");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece" id="${selectedPiece.pieceId}"></p>`;
@@ -273,7 +272,7 @@ function makeMove(number) {
         }
     } else {
         if (selectedPiece.isKing) {
-            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece-King" id="${selectedPiece.pieceId}"></span>`;
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece king" id="${selectedPiece.pieceId}"></span>`;
             mortyHeadPieces = document.querySelectorAll("span");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece" id="${selectedPiece.pieceId}"></span>`;
@@ -331,18 +330,16 @@ function removeEventListeners() {
 // Define the checkForWin function to determine if there is a winner yet:
 function checkForWin() {
     if (mortyScore === 0) {
-        divider.style.display = "none";
         for (let i = 0; i < rickTurnText.length; i++) {
             rickTurnText[i].style.color = "yellow";
             mortyTurnText[i].style.display = "none";
             rickTurnText[i].textContent = "RICK WINS!";
         }
     } else if (rickScore === 0) {
-        divider.style.display = "none";
         for (let i = 0; i < mortyTurnText.length; i++) {
             mortyTurnText[i].style.color = "yellow";
             rickTurnText[i].style.display = "none";
-            mortyTurnText[i].textContent = "RICK WINS!";
+            mortyTurnText[i].textContent = "MORTY WINS!";
         }
     }
     changePlayer();
@@ -353,14 +350,14 @@ function changePlayer() {
     if (turn) {
         turn = false;
         for (let i = 0; i < rickTurnText.length; i++) {
-            rickTurnText[i].style.color = "lightGrey";
-            mortyTurnText[i].style.color = "white";
+            rickTurnText[i].style.color = "lightgray";
+            mortyTurnText[i].style.color = "yellow";
         }
     } else {
         turn = true;
         for (let i = 0; i < mortyTurnText.length; i++) {
-            mortyTurnText[i].style.color = "lightGrey";
-            rickTurnText[i].style.color = "white";
+            mortyTurnText[i].style.color = "lightgray";
+            rickTurnText[i].style.color = "yellow";
         }
     }
     addPiecesEventListener();

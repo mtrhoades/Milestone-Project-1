@@ -4,6 +4,7 @@
 }
 body {
     background-image: url("./assets/space.jpg");
+    font-family: sans-serif;
 }
 .top {
     display: block;
@@ -92,9 +93,21 @@ span {
 }
 
 .whoesTurn {
+    margin: 0;
+    width: 100%;
+}
+
+.rickTurnText {
     text-align: center;
-    display: inline-flex;
-    color: white;
+    color: yellow;
+    font-size: 55px;
+}
+
+.mortyTurnText {
+    text-align: center;
+    color: lightgray;
+    font-size: 55px;
+  
 }
 
 
