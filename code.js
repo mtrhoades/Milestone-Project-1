@@ -1,42 +1,27 @@
-// Grab the div id of portal for reset & start buttons.
-const portal = document.getElementById('portal');
 
-// Add reset button.
-const resetButton = document.createElement('button');
-resetButton.textContent = 'Reset Game';
-resetButton.style.display = "inline-block"
-resetButton.style.color = "red"
-portal.appendChild(resetButton);
-resetButton.addEventListener('click', function() {
-    alert("Let's reset this game.");
-});
+// Adding Wubbah lubbah dub dub phrase at the bottom.
+const funnyPhrase = document.createElement('h2');
+funnyPhrase.setAttribute('id', 'funnyPhrase');
+funnyPhrase.textContent = "Wubbah lubbah dub dub!";
+funnyPhrase.style.color = "white";
+document.body.append(funnyPhrase);
 
-// Add start game button.
-const startButton = document.createElement('button');
-startButton.textContent = 'Start Game';
-startButton.style.display = "inline-block"
-startButton.style.color = "green"
-portal.appendChild(startButton)
-startButton.addEventListener('click', function() {
-    alert("Let's start the game!");
-});
-
-
+    
 // Make Array for checkers board.
 
 const checkersBoard = [
-    ['null', '0', 'null', '1', 'null', '2', 'null', '3'],
-    ['4', 'null', '5', 'null', '6', 'null', '7', 'null'],
-    ['null', '8', 'null', '9', 'null', '10', 'null', '11'],
-    ['null', 'null', 'null', 'null', 'null', 'null', 'null', 'null'],
-    ['null', 'null', 'null', 'null', 'null', 'null', 'null', 'null'],
-    ['12', 'null', '13', 'null', '14', 'null', '15', 'null'],
-    ['null', '16', 'null', '17', 'null', '18', 'null', '19'],
-    ['20', 'null', '21', 'null', '22', 'null', '23', 'null'],
-];
+    null, 0, null, 1, null, 2, null, 3,
+    4, null, 5, null, 6, null, 7, null,
+    null, 8, null, 9, null, 10, null, 11,
+    null, null, null, null, null, null, null, null,
+    null, null, null, null, null, null, null, null,
+    12, null, 13, null, 14, null, 15, null,
+    null, 16, null, 17, null, 18, null, 19,
+    20, null, 21, null, 22, null, 23, null
+]
 
 
-// Find each piece on board:
+// Find each piece on board: (using parse to turn string id into a number id)
 let findPiece = function (pieceId) {
     let parsed = parseInt(pieceId);
     return checkersBoard.indexOf(parsed);
@@ -85,6 +70,7 @@ function addPiecesEventListener() {
     }
 }
 
+
 // Hold the length of players piece count:
 function getPlayerPieces() {
     if (turn) {
@@ -96,7 +82,7 @@ function getPlayerPieces() {
     resetBorders();
 }
 
-// Loop through all cells on the board
+// Function for removing possible moves from old selected piece:
 function removeCellonclick() {
     for (let i = 0; i < cells.length; i++) {
         cells[i].removeAttribute("onclick");
@@ -114,6 +100,7 @@ function resetBorders() {
 
 // Reset all properties of selected piece:
 function resetSelectedPieceProperties() {
+    selectedPiece.pieceId = -1;
     selectedPiece.pieceId = -1;
     selectedPiece.isKing = false;
     selectedPiece.seventhSpace = false;
@@ -172,11 +159,42 @@ function checkAvailableJumpSpaces() {
             && checkersBoard[selectedPiece.indexOfBoardPiece + 7] >= 12) {
                 selectedPiece.fourteenthSpace = true;
             }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece + 18] === null
+            && cells[selectedPiece.indexOfBoardPiece + 18].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece + 9] >= 12) {
+                selectedPiece.eighteenthSpace = true;
+            }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece - 14] === null
+            && cells[selectedPiece.indexOfBoardPiece - 14].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece - 7] >= 12) {
+                selectedPiece.minusFourteenthSpace = true;
+            }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece - 18] === null
+            && cells[selectedPiece.indexOfBoardPiece - 18].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece - 9] >= 12) {
+                selectedPiece.minusEighteenthSpace = true;
+            }
+    
     } else {
         if (checkersBoard[selectedPiece.indexOfBoardPiece + 14] === null
             && cells[selectedPiece.indexOfBoardPiece + 14].classList.contains("noPieceHere") !== true
             && checkersBoard[selectedPiece.indexOfBoardPiece + 7] < 12 && checkersBoard[selectedPiece.indexOfBoardPiece + 7] !== null) {
                 selectedPiece.fourteenthSpace = true;
+            }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece + 18] === null
+            && cells[selectedPiece.indexOfBoardPiece + 18].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece + 9] < 12 && checkersBoard[selectedPiece.indexOfBoardPiece + 9] !== null) {
+                selectedPiece.eighteenthSpace = true;
+            }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece - 14] === null
+            && cells[selectedPiece.indexOfBoardPiece - 14].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece - 7] < 12 && checkersBoard[selectedPiece.indexOfBoardPiece - 7] !== null) {
+                selectedPiece.minusFourteenthSpace = true;
+            }
+        if (checkersBoard[selectedPiece.indexOfBoardPiece - 18] === null
+            && cells[selectedPiece.indexOfBoardPiece - 18].classList.contains("noPieceHere") !== true
+            && checkersBoard[selectedPiece.indexOfBoardPiece - 9] < 12 && checkersBoard[selectedPiece.indexOfBoardPiece - 9] !== null) {
+                selectedPiece.minusEighteenthSpace = true;
             }
     }
     checkPieceConditions();
@@ -214,10 +232,153 @@ function givePieceBorder() {
 }
 
 // Define function for giveCellsClick to give onclick attribute for selected pieces to move:
+function giveCellsClick() {
+    if (selectedPiece.seventhSpace) {
+        cells[selectedPiece.indexOfBoardPiece + 7].setAttribute("onclick", "makeMove(7)");
+    }
+    if (selectedPiece.ninthSpace) {
+        cells[selectedPiece.indexOfBoardPiece + 9].setAttribute("onclick", "makeMove(9)");
+    }
+    if (selectedPiece.fourteenthSpace) {
+        cells[selectedPiece.indexOfBoardPiece + 14].setAttribute("onclick", "makeMove(14)");
+    }
+    if (selectedPiece.eighteenthSpace) {
+        cells[selectedPiece.indexOfBoardPiece + 18].setAttribute("onclick", "makeMove(18)");
+    }
+    if (selectedPiece.minusSeventhSpace) {
+        cells[selectedPiece.indexOfBoardPiece - 7].setAttribute("onclick", "makeMove(-7)");
+    }
+    if (selectedPiece.minusNinthSpace) {
+        cells[selectedPiece.indexOfBoardPiece - 9].setAttribute("onclick", "makeMove(-9)");
+    }
+    if (selectedPiece.minusFourteenthSpace) {
+        cells[selectedPiece.indexOfBoardPiece - 14].setAttribute("onclick", "makeMove(-14)");
+    }
+    if (selectedPiece.minusEighteenthSpace) {
+        cells[selectedPiece.indexOfBoardPiece - 18].setAttribute("onclick", "makeMove(-18)");
+    }
+}
+
+// Define makeMove function for making the moves when clicked:
+function makeMove(number) {
+    document.getElementById(selectedPiece.pieceId).remove();
+    cells[selectedPiece.indexOfBoardPiece].innerHTML = "";
+    if (turn) {
+        if (selectedPiece.isKing) {
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece-King" id="${selectedPiece.pieceId}"></p>`;
+            rickHeadPieces = document.querySelectorAll("p");
+        } else {
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece" id="${selectedPiece.pieceId}"></p>`;
+            rickHeadPieces = document.querySelectorAll("p");
+        }
+    } else {
+        if (selectedPiece.isKing) {
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece-King" id="${selectedPiece.pieceId}"></span>`;
+            mortyHeadPieces = document.querySelectorAll("span");
+        } else {
+            cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece" id="${selectedPiece.pieceId}"></span>`;
+            mortyHeadPieces = document.querySelectorAll("span");
+        }
+    }
+    let indexOfPiece = selectedPiece.indexOfBoardPiece
+    if (number === 14 || number === -14 || number === 18 || number === -18) {
+        changeData(indexOfPiece, indexOfPiece + number, indexOfPiece + number / 2);
+    } else {
+        changeData(indexOfPiece, indexOfPiece + number);
+    }
+}
+
+// Define the changeData function for the back-end data manipulation:
+function changeData(indexOfBoardPiece, modifiedIndex, removePiece) {
+    checkersBoard[indexOfBoardPiece] = null;
+    checkersBoard[modifiedIndex] = parseInt(selectedPiece.pieceId);
+    if (turn && selectedPiece.pieceId < 12 && modifiedIndex >= 57) {
+        document.getElementById(selectedPiece.pieceId).classList.add("king")
+    }
+    if (turn === false && selectedPiece.pieceId >= 12 && modifiedIndex <= 7) {
+        document.getElementById(selectedPiece.pieceId).classList.add("king");
+    }
+    if (removePiece) {
+        checkersBoard[removePiece] = null;
+        if (turn && selectedPiece.pieceId < 12) {
+            cells[removePiece].innerHTML = "";
+            mortyScore--
+        }
+        if (turn === false && selectedPiece.pieceId >= 12) {
+            cells[removePiece].innerHTML = "";
+            rickScore--
+        }
+    }
+    resetSelectedPieceProperties();
+    removeCellonclick();
+    removeEventListeners();
+}
+
+// function for removing onclick event listeners for pieces:
+function removeEventListeners() {
+    if (turn) {
+        for (let i = 0; i < rickHeadPieces.length; i++) {
+            rickHeadPieces[i].removeEventListener("click", getPlayerPieces);
+        }
+    } else {
+        for (let i = 0; i < mortyHeadPieces.length; i++) {
+            mortyHeadPieces[i].removeEventListener("click", getPlayerPieces);
+        }
+    }
+    checkForWin();
+}
+
+// Define the checkForWin function to determine if there is a winner yet:
+function checkForWin() {
+    if (mortyScore === 0) {
+        divider.style.display = "none";
+        for (let i = 0; i < rickTurnText.length; i++) {
+            rickTurnText[i].style.color = "yellow";
+            mortyTurnText[i].style.display = "none";
+            rickTurnText[i].textContent = "RICK WINS!";
+        }
+    } else if (rickScore === 0) {
+        divider.style.display = "none";
+        for (let i = 0; i < mortyTurnText.length; i++) {
+            mortyTurnText[i].style.color = "yellow";
+            rickTurnText[i].style.display = "none";
+            mortyTurnText[i].textContent = "RICK WINS!";
+        }
+    }
+    changePlayer();
+}
+
+// Define function changePlayer to switch players turn:
+function changePlayer() {
+    if (turn) {
+        turn = false;
+        for (let i = 0; i < rickTurnText.length; i++) {
+            rickTurnText[i].style.color = "lightGrey";
+            mortyTurnText[i].style.color = "white";
+        }
+    } else {
+        turn = true;
+        for (let i = 0; i < mortyTurnText.length; i++) {
+            mortyTurnText[i].style.color = "lightGrey";
+            rickTurnText[i].style.color = "white";
+        }
+    }
+    addPiecesEventListener();
+}
+
+// Calling function from beginning (globally scoped):
+addPiecesEventListener();
 
 
 
 
+/* ***********************************************************************************************************************************************/
+
+
+
+// // Appending the rick & morty head pieces to start the game.
+
+// function for appending rick and morty heads as supposed to hard coding to each specific cell id.
 // let mortyHeadArray = document.querySelectorAll(".mortyHeadPiece")
 
 // for (let i = 0; i < mortyHeadArray.length; i++) {
@@ -229,7 +390,6 @@ function givePieceBorder() {
 
 // }
 
-// // Appending the rick & morty head pieces to start the game.
 
 // Mortys:
 
@@ -374,157 +534,3 @@ function givePieceBorder() {
 // rickBlackSquare12.appendChild(rickImage12);
 
 
-
-
-
-// Adding Wubbah lubbah dub dub phrase at the bottom.
-const funnyPhrase = document.createElement('h2');
-funnyPhrase.setAttribute('id', 'funnyPhrase');
-funnyPhrase.textContent = "Wubbah lubbah dub dub!";
-funnyPhrase.style.color = "white";
-document.body.append(funnyPhrase);
-
-
-
-// Calling functions from above:
-addPiecesEventListener()
-
-
-
-
-// *************************************************************************************************************************
-// *************************************************************************************************************************
-// OLD CODE FOR CHECKERS BOARD AND APPENDING RICK AND MORTY HEAD PIECES:
-
-// // Create center tag to center the checkersBoard.
-// let center = document.createElement('center');
-
-// // Create a table element to create the checkersBoard.
-// let checkersBoard = document.createElement('table');
-// checkersBoard.setAttribute('class', 'checkersBoard')
-
-
-// // Make a for loop to loop through creating each row, (8x8).
-// for (let i =0; i < checkersBoardArray.length; i++) {
-
-//     // Create the rows.
-//     let row = document.createElement('tr');
-
-//     // Make another for loop inside of the previous one to loop through creating each cell. (8 in each row/column)
-//     for (let j = 0; j < 8; j++) {
-
-//         // Create the cells.
-//         let cell = document.createElement('td');
-
-//         // Coloring the cells using if statement.
-//         if ((i + j) % 2 == 0) { // if the sum of cells is even, color blue, else color black.
-//             cell.setAttribute('class', 'cell bluecell'); // Setting two classes for all blue cells: cell & bluecell.
-//             row.appendChild(cell);
-//         } else {
-//             cell.setAttribute('class', 'cell blackcell'); // Setting two classes for all black cells: cell & blackcell.
-//             row.appendChild(cell); // Appending the cells to the rows.
-//         }
-
-//         // Adding start pieces - mortys: (8 of them)
-//         function mortyHead(url) {
-//             let image = document.createElement('img');
-//             image.setAttribute('id', 'mortyHead')
-//             image.src = url;
-//             if (i === 0 && j === 1) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 0 && j === 3) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 0 && j === 5) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 0 && j === 7) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 1 && j === 0) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 1 && j === 2) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 1 && j === 4) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 1 && j === 6) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 2 && j === 1) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 2 && j === 3) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 2 && j === 5) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 2 && j === 7) {
-//                 cell.appendChild(image);
-//                 return image
-//             }
-//         }
-//         mortyHead('./assets/mortyhead3.png')
-
-//         // Adding start pieces - ricks: (8 of them)
-//         function rickHead(url) {
-//             let image = document.createElement('img');
-//             image.setAttribute('id', 'rickHead')
-//             image.src = url;
-//             if (i === 7 && j === 0) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 7 && j === 2) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 7 && j === 4) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 7 && j === 6) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 6 && j === 1) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 6 && j === 3) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 6 && j === 5) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 6 && j === 7) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 5 && j === 0) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 5 && j === 2) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 5 && j === 4) {
-//                 cell.appendChild(image);
-//                 return image
-//             } else if (i === 5 && j === 6) {
-//                 cell.appendChild(image);
-//                 return image
-//             }
-//         }
-//         rickHead('./assets/rickhead5.png')
-
-//     }
-//     checkersBoard.appendChild(row); // Appending the rows to the checkers board.
-
-    
-// }
-// center.appendChild(checkersBoard); // Appending the checkers board to the center variable, to make the whole thing centered.
-
-
-// // Modifying the table (checkers board) properties.
-// checkersBoard.setAttribute('cellspacing', '0'); // No spacing between cells.
-// checkersBoard.setAttribute('width', '900px'); // Modifying the width altogether.
-// checkersBoard.setAttribute('height', '800px');
-// document.body.appendChild(center); // Appending the checkers board to the page (body).

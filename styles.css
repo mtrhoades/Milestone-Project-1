@@ -1,33 +1,41 @@
 * {
     margin: auto;
-    padding: 1em;
+    padding: .75em;
 }
-
 body {
     background-image: url("./assets/space.jpg");
 }
-h1 {
-    color: white;
+.top {
+    display: block;
+}
+.banner img {
+    display: block;
+    height: 250px;
 }
 .portal {
     width: 400px;
     height: 475px;
-    display: block;
 }
 h2 {
     color: white;
 }
 .portal-img {
-    text-align: center;
-    position: relative;
-    top: 0;
-    left: 0;
+    flex-direction: column;
 }
-.banner img {
-    display: block;
-    justify-content: center;
-    height: 250px;
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    height: 100vh;
 }
+
+div {
+    display: flex;
+    justify-content: space-between;
+}
+
 
 /* Table styling */
 table {
@@ -37,9 +45,9 @@ table {
 td {
     background-color: black;
     width: 80px;
-    height: 70px;
+    height: 75px;
     text-align: center;
-    border: 1px solid white;
+    /* border: 1px solid white; */
 }
 
 .noPieceHere {
@@ -75,22 +83,20 @@ td {
     background-color: yellowgreen;
 }
 
+p {
+    display: inline-block;
+}
+
+span {
+    display: inline-block;
+}
+
 .whoesTurn {
     text-align: center;
     display: inline-flex;
-}
-
-.whoesTurn  p {
     color: white;
 }
 
-.mortyTurnText {
-    color: white
-}
-
-.rickTurnText {
-    color: gray;
-}
 
 #mortyHead {
     width: 60px;
@@ -100,24 +106,6 @@ td {
      width: 60px;
      height: 65px;
  }
-
-
-/* Styling for the chessboard from code.js
-.checkersBoard {
-    border: 1.5px solid green;
-}
-.cell {
-    height: 90px;
-    width: 60px;
-    border: 1.5px solid gray;
-    border-style: inset;
-}
-.blackcell {
-    background-color: black;
-}
-.bluecell {
-    background-color: #14c9e0;
-}
 
 
 
