@@ -1,4 +1,4 @@
-
+/* STEP 1. (making sure javascript is working with live server.) */
 // Adding Wubbah lubbah dub dub phrase at the bottom.
 const funnyPhrase = document.createElement('h2');
 funnyPhrase.setAttribute('id', 'funnyPhrase');
@@ -6,7 +6,7 @@ funnyPhrase.textContent = "Wubbah lubbah dub dub!";
 funnyPhrase.style.color = "white";
 document.body.append(funnyPhrase);
 
-    
+/* STEP 2. */    
 // Make Array for checkers board. (mimics the table made in HTML.)
 const checkersBoard = [
     null, 0, null, 1, null, 2, null, 3,
@@ -19,58 +19,65 @@ const checkersBoard = [
     20, null, 21, null, 22, null, 23, null
 ]
 
+/* STEP 3. (selectors and findPiece function declared.)*/
+// Selectors:
+const cells = document.querySelectorAll("td")
+const rickHeadPieces = document.querySelectorAll("p")
+const mortyHeadPieces = document.querySelectorAll("span")
+const rickTurnText = document.querySelectorAll(".rickTurnText")
+const mortyTurnText = document.querySelectorAll(".mortyTurnText");
 
 // Find each piece on board: (using parse to turn string id into a number id)
-let findPiece = function (pieceId) {
+let findPiece = (pieceId) => {
     let parsed = parseInt(pieceId);
     return checkersBoard.indexOf(parsed);
 };
 
-// Selectors:
-const cells = document.querySelectorAll("td")
-let rickHeadPieces = document.querySelectorAll("p")
-let mortyHeadPieces = document.querySelectorAll("span")
-const rickTurnText = document.querySelectorAll(".rickTurnText")
-const mortyTurnText = document.querySelectorAll(".mortyTurnText")
-
-
+/* STEP 4. (player properties & object created for selected piece.) */
 // Player properties:
-let turn = true; // So true === ricks turn, and false === mortys turn
+let turn = true; // So true === ricks turn, and false === mortys turn.
 let rickScore = 12;
 let mortyScore = 12;
 let playerPieces;
 
+console.log(turn)
 
 // Create object to hold the properties of the pieces:
 let selectedPiece = {
-    pieceId: -1,
+    pieceId: -1, // because id's start at 0.
     indexOfBoardPiece: -1,
     isKing: false,
     // below are all the possible moves that are available to each piece.
-    seventhSpace: false, // Only can move 7 different spaces with any piece (per rick or morty) at the start of game.
-    ninthSpace: false, // Only can move 9 different spaces with any piece (per rick or morty) when there is less enemy pieces on the board than started with.
-    fourteenthSpace: false, // ^ same thing as above but now with more available spaces to move with jumps, and less enemies.
-    eighteenthSpace: false, // ^^
-    minusSeventhSpace: false, // using minus now to go from the opposite end of the board, so mortys are negative (move upwards on board), ricks are positive (moves downwards on board).
-    minusNinthSpace: false, // ^^ same logic but now with less enemies on the board, thus more available spaces to move pieces.
-    minusFourteenthSpace: false, // ^^ includes jumps.
-    minusEighteenthSpace: false // ^^^
+    seventhSpace: false,
+    ninthSpace: false,
+    fourteenthSpace: false,
+    eighteenthSpace: false,
+    // minus for moving upwards on the board, positive for moving downwards.
+    minusSeventhSpace: false,
+    minusNinthSpace: false,
+    minusFourteenthSpace: false,
+    minusEighteenthSpace: false
 }
 
-// Create event listeners on both ricks and mortys:
+
+/* STEP 5. */
+// Create click event listeners on both rick and morty pieces: (targeting the specific cells that rickHeadPieces and mortyHeadPieces are = to in the table.)
 function addPiecesEventListener() {
     if (turn) {
         for (let i = 0; i < rickHeadPieces.length; i++) {
-            rickHeadPieces[i].addEventListener("click", getPlayerPieces);
+            rickHeadPieces[i].addEventListener("click", getPlayerPieces); // have to add a new function for keeping count of each players pieces on the board.
+            console.log("RICK!")
         }
     } else {
         for (let i = 0; i < mortyHeadPieces.length; i++) {
             mortyHeadPieces[i].addEventListener("click", getPlayerPieces);
+            console.log("MORTY!")
         }
     }
 }
 
 
+/* STEP 6. */
 // Hold the length of players piece count:
 function getPlayerPieces() {
     if (turn) {
@@ -86,6 +93,7 @@ function getPlayerPieces() {
 function removeCellonclick() {
     for (let i = 0; i < cells.length; i++) {
         cells[i].removeAttribute("onclick");
+        // console.log("REMOVE")
     }
 }
 
@@ -116,7 +124,7 @@ function resetSelectedPieceProperties() {
 // Selects id and index of checkersboard array cell it is on:
 function getSelectedPiece() {
     selectedPiece.pieceId = parseInt(this.event.target.id);
-    console.log(selectedPiece.pieceId)
+    // console.log(selectedPiece.pieceId)
     selectedPiece.indexOfBoardPiece = findPiece(selectedPiece.pieceId);
     isPieceKing();
 }
@@ -267,18 +275,18 @@ function makeMove(number) {
     if (turn) {
         if (selectedPiece.isKing) {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece king" id="${selectedPiece.pieceId}"></p>`;
-            rickHeadPieces = document.querySelectorAll("p");
+            // rickHeadPieces = document.querySelectorAll("p");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<p class="rickHeadPiece" id="${selectedPiece.pieceId}"></p>`;
-            rickHeadPieces = document.querySelectorAll("p");
+            // rickHeadPieces = document.querySelectorAll("p");
         }
     } else {
         if (selectedPiece.isKing) {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece king" id="${selectedPiece.pieceId}"></span>`;
-            mortyHeadPieces = document.querySelectorAll("span");
+            // mortyHeadPieces = document.querySelectorAll("span");
         } else {
             cells[selectedPiece.indexOfBoardPiece + number].innerHTML = `<span class="mortyHeadPiece" id="${selectedPiece.pieceId}"></span>`;
-            mortyHeadPieces = document.querySelectorAll("span");
+            // mortyHeadPieces = document.querySelectorAll("span");
         }
     }
     let indexOfPiece = selectedPiece.indexOfBoardPiece
