@@ -37,10 +37,22 @@ div {
     justify-content: space-between;
 }
 
+.mobile {
+    display: none;
+}
+
+.desktop {
+    margin: 0;
+    width: 100%;
+}
 
 /* Table styling */
 table {
     border: 1.5px solid green;
+}
+
+.noPieceHere {
+    background-color: #14c9e0;
 }
 
 td {
@@ -48,53 +60,6 @@ td {
     width: 80px;
     height: 75px;
     text-align: center;
-    /* border: 1px solid white; */
-}
-
-.noPieceHere {
-    background-color: #14c9e0;
-}
-
-.mortyHeadPiece {
-    width: 20px;
-    height: 20px;
-    padding: 12px;
-    background-color: black;
-    border: 1px solid white;
-    border-radius: 50px;
-}
-
-.rickHeadPiece {
-    width: 20px;
-    height: 20px;
-    padding: 12px;
-    background-color: red;
-    border: 1px solid white;
-    border-radius: 50px;
-
-}
-
-.kingMortyHead {
-    width: 60px;
-    background-color: rgb(238, 9, 200);
-}
-
-.kingRickHead {
-    width: 60px;
-    background-color: rgb(145, 211, 12);
-}
-
-p {
-    display: inline-block;
-}
-
-span {
-    display: inline-block;
-}
-
-.whoesTurn {
-    margin: 0;
-    width: 100%;
 }
 
 .rickTurnText {
@@ -109,6 +74,46 @@ span {
     font-size: 55px;
   
 }
+
+.rickHeadPiece {
+    width: 20px;
+    height: 20px;
+    padding: 12px;
+    background-color: red;
+    border: 1px solid white;
+    border-radius: 50px;
+
+}
+
+.mortyHeadPiece {
+    width: 20px;
+    height: 20px;
+    padding: 12px;
+    background-color: black;
+    border: 1px solid white;
+    border-radius: 50px;
+}
+
+
+.king.mortyHeadPiece {
+    width: 60px;
+    background-color: rgb(238, 9, 200);
+}
+
+.king.rickHeadPiece {
+    width: 60px;
+    background-color: rgb(145, 211, 12);
+}
+
+p {
+    display: inline-block;
+}
+
+span {
+    display: inline-block;
+}
+
+
 
 
 

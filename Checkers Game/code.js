@@ -19,7 +19,14 @@ const checkersBoard = [
     20, null, 21, null, 22, null, 23, null
 ]
 
+
 /* STEP 3. (selectors and findPiece function declared.)*/
+// Find each piece on board: (using parse to turn string id into a number id)
+let findPiece = (pieceId) => {
+    let parsed = parseInt(pieceId);
+    return checkersBoard.indexOf(parsed);
+};
+
 // Selectors:
 const cells = document.querySelectorAll("td")
 const rickHeadPieces = document.querySelectorAll("p")
@@ -27,11 +34,6 @@ const mortyHeadPieces = document.querySelectorAll("span")
 const rickTurnText = document.querySelectorAll(".rickTurnText")
 const mortyTurnText = document.querySelectorAll(".mortyTurnText");
 
-// Find each piece on board: (using parse to turn string id into a number id)
-let findPiece = (pieceId) => {
-    let parsed = parseInt(pieceId);
-    return checkersBoard.indexOf(parsed);
-};
 
 /* STEP 4. (player properties & object created for selected piece.) */
 // Player properties:

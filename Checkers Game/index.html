@@ -6,20 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Checkers Game</title>
     <link href="./styles.css" rel="stylesheet">
-</head>
-<body>
     <div class="top">
         <header class="banner">
             <img src="./assets/rickandmortybanner2.png" alt="rick & morty banner">
         </header>
-        
+    </div>
+</head>
+<body>
         <div class="portal-img" id="portal">
             <h2>“Nobody exists on purpose. Nobody belongs anywhere. We’re all going to die. Come play Checkers!” — Morty</h2>
             <img class="portal" id = "portalImg" src="./assets/portal4.png" alt="green space portal">
-        </div>
     </div>
     
     <main>
+        <div class="rickTurnText mobile">
+            Ricks Turn
+        </div>
             <table>
                 <tr>
                     <td class="noPieceHere"></td>
@@ -102,16 +104,18 @@
                     <td class="noPieceHere"></td>
                 </tr>
             </table>
-
-            <div class="whoesTurn">
+            <div class="desktop">
                 <div class="rickTurnText">
-                    <b>Ricks Turn</b>
+                    Ricks Turn
                 </div>
                 <div class="mortyTurnText">
-                    <b>Mortys Turn</b>
+                    Mortys Turn
                 </div>
             </div>
+            <div class="mortyTurnText mobile">
+                Mortys Turn
+            </div>
     </main>
-    <script src="./code.js"></script>
+    <script src="./code2.js"></script>
 </body>
 </html>
