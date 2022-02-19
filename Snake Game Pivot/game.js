@@ -13,7 +13,7 @@ let gameOver = false;
 
 
 // GAME FUNCTIONS:
-function main(currentTime) {
+function main(currentTime) { // made to repeat update() and draw()
     if (gameOver) {
         alert('You LOST! Press OK to restart the game');
             window.location.reload();

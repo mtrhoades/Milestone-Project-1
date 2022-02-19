@@ -29,13 +29,14 @@ function getRandomFoodPosition() { // makes food appear in random position on th
 }
 
 export function drawFood(gameBoard) { // same as function draw in snake.js but formulated for food piece instead.
-    const foodElement = document.createElement('div');
-    // const mortyFoodImage = document.createElement('img');
-    // mortyFoodImage.src = './assets/mortyhead3.png'
-    // mortyFoodImage.setAttribute('id', 'mortyFoodImage')
+    let foodElement = document.createElement('div');
+    let mortyFoodImage = document.createElement('img');
+    mortyFoodImage.src = './assets/mortyhead3.png'
+    mortyFoodImage.setAttribute('id', 'mortyFoodImage')
+    foodElement.appendChild(mortyFoodImage);
     foodElement.style.gridRowStart = food.y;
     foodElement.style.gridColumnStart = food.x;
     foodElement.classList.add('mortyFood') // styled in styles.css file
-    // foodElement.appendChild(mortyFoodImage);
     gameBoard.appendChild(foodElement); // appends the snake to the gameBoard, and into the browser.
 }
+

@@ -41,7 +41,11 @@ function addSegments() { // create function for adding segments to the snake whe
 export function drawSnake(gameBoard) { // called in the function main in game.js
     snakeBody.forEach(segment => {
         // for each segment of the snake create a snake element, show position of start, and style it.
-        const snakeElement = document.createElement('div');
+        let snakeElement = document.createElement('div');
+        let rickFoodImage = document.createElement('img');
+        rickFoodImage.src = './assets/rickhead5.png'
+        rickFoodImage.setAttribute('id', 'mortyFoodImage')
+        snakeElement.appendChild(rickFoodImage);
         snakeElement.style.gridRowStart = segment.y;
         snakeElement.style.gridColumnStart = segment.x;
         snakeElement.classList.add('rickSnake') // styled in styles.css file
