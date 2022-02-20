@@ -77,7 +77,7 @@ function checkForWin() {
         } else if (snakeBody.length >= 49) {
             let snakeSpeed = 17;
             console.log(snakeSpeed)
-            winnerText.textContent = "YOUR KILLING IT SNAKE MASTER!";
+            winnerText.textContent = "YOU ARE KILLING IT SNAKE MASTER!";
             winnerText.style.color = "#d67206";
             winnerText.style.fontSize = "40px";
         }
