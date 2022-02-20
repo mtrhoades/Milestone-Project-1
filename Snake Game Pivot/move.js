@@ -1,5 +1,5 @@
 // SELECTORS:
-let inputDirection = { x: 0, y: 0 }
+let moveDirectionInput = { x: 0, y: 0 }
 let theLastInputDirection = { x: 0, y: 0 }
 
 
@@ -10,19 +10,19 @@ window.addEventListener('keydown', e => {
         case 'ArrowUp':
             // make if statements for theLastInputDirection so snake does NOT move onto itself:
             if (theLastInputDirection.y !== 0) break // break early
-            inputDirection = { x: 0, y: -1 } // remember -1 moves y up, positive 1 moves y down
+            moveDirectionInput = { x: 0, y: -1 } // remember -1 moves y up, positive 1 moves y down
             break
         case 'ArrowDown':
             if (theLastInputDirection.y !== 0) break
-            inputDirection = { x: 0, y: 1 }
+            moveDirectionInput = { x: 0, y: 1 }
             break
         case 'ArrowLeft':
             if (theLastInputDirection.x !== 0) break
-            inputDirection = { x: -1, y: 0 } // remember -1 moves x left, postive 1 moves x right.
+            moveDirectionInput = { x: -1, y: 0 } // remember -1 moves x left, postive 1 moves x right.
             break
         case 'ArrowRight':
             if (theLastInputDirection.x !== 0) break
-            inputDirection = { x: 1, y: 0 } 
+            moveDirectionInput = { x: 1, y: 0 } 
             break
     }
     e.preventDefault(); // keeps arrow key movements from scrolling the page
@@ -30,8 +30,8 @@ window.addEventListener('keydown', e => {
 
 
 
-export function getInputDirection() {
+export function getMoveDirection() {
     // define a variable for theLastInputDirection so the snake does NOT move onto itself. (up to down, or left to right)
-    theLastInputDirection = inputDirection
-    return inputDirection;
+    theLastInputDirection = moveDirectionInput
+    return moveDirectionInput;
 }
