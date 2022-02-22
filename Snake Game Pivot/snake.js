@@ -4,7 +4,7 @@ import { getMoveDirection } from "./move.js";
 
 
 // SELECTORS:
-export let snakeSpeed = 5; // used in equation for speed inside function main.
+export let snakeSpeed = 10; // used in equation for speed inside function main.
 let newSnakeSegments = 0
 
 
@@ -34,49 +34,39 @@ function addSegments() { // create function for adding segments to the snake whe
     for (let i = 0; i < newSnakeSegments; i++) {
         snakeBody.push({ ...snakeBody[snakeBody.length - 1] }) // taking last segment/element of snake and duplicating it onto the end of the snake to make more segments.
         console.log(newSnakeSegments)
+
         checkForWin();
     }
     newSnakeSegments = 0 // make it so the snake stops making segments, not constantly creating more. (only the ones equal to the expansion rate everytime a piece of food is eaten.)
     
 }
 
-function checkForWin() {
+export function checkForWin() {
     for (let i = 0; i < snakeBody.length; i++) {
         if (snakeBody.length === 10) {
-            let snakeSpeed = 7;
-            console.log(snakeSpeed) 
+            // let snakeSpeed = 20;
             let winnerText = document.querySelectorAll('#winnerText');
             for (let i = 0; i < winnerText.length; i++) {
                 winnerText[i].textContent = "YOU WON! High Score - 3";
                 winnerText[i].style.color = "#c9e610";
             }
         } else if (snakeBody.length === 19) {
-            let snakeSpeed = 9;
-            console.log(snakeSpeed)    
             winnerText.textContent = "YOU WON! High Score - 6";
             winnerText.style.color = "#d9387e";
             winnerText.style.fontSize = "25px";
         } else if (snakeBody.length === 28) {
-            let snakeSpeed = 11;
-            console.log(snakeSpeed)
             winnerText.textContent = "YOU WON! High Score - 9";
             winnerText.style.color = "#14c9e0";
             winnerText.style.fontSize = "30px";
         } else if (snakeBody.length === 37) {
-            let snakeSpeed = 13;
-            console.log(snakeSpeed)
             winnerText.textContent = "YOU WON! High Score - 12";
             winnerText.style.color = "#07e027";
             winnerText.style.fontSize = "35px";
         } else if (snakeBody.length === 46) {
-            let snakeSpeed = 15;
-            console.log(snakeSpeed)
             winnerText.textContent = "YOU WON! High Score - 15";
             winnerText.style.color = "#38d9c9";
             winnerText.style.fontSize = "40px";
         } else if (snakeBody.length >= 49) {
-            let snakeSpeed = 17;
-            console.log(snakeSpeed)
             winnerText.textContent = "YOU ARE KILLING IT SNAKE MASTER!";
             winnerText.style.color = "#d67206";
             winnerText.style.fontSize = "40px";
@@ -89,10 +79,6 @@ export function drawSnake(gameBoard) { // called in the function main in game.js
     snakeBody.forEach(segment => {
         // for each segment of the snake create a snake element, show position of start, and style it.
         let snakeElement = document.createElement('div');
-        // let rickFoodImage = document.createElement('img');
-        // rickFoodImage.src = './assets/rickhead5.png'
-        // rickFoodImage.setAttribute('id', 'mortyFoodImage')
-        // snakeElement.appendChild(rickFoodImage);
         snakeElement.style.gridRowStart = segment.y;
         snakeElement.style.gridColumnStart = segment.x;
         snakeElement.classList.add('rickSnake') // styled in styles.css file

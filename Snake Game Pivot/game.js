@@ -1,5 +1,5 @@
 // OTHER JAVASCRIPT FILE IMPORTS:
-import { updateSnake, drawSnake, snakeSpeed, getSnakeHead, snakeIntersection } from './snake.js';
+import { updateSnake, drawSnake, snakeSpeed, getSnakeHead, snakeIntersection, checkForWin } from './snake.js';
 import { updateFood, drawFood } from './food.js';
 import { outsideGrid } from './grid.js';
 
@@ -15,9 +15,12 @@ let gameOver = false;
 // GAME FUNCTIONS:
 function main(currentTime) { // made to repeat update() and draw()
     if (gameOver) {
-        alert('You LOST! Press OK to restart the game');
-            window.location.reload();
-    return
+        let loserText = document.querySelectorAll('#loserText');
+        for (let i = 0; i < loserText.length; i++) {
+            loserText[i].textContent = "YOU LOSE! ... click Restart game to play again";
+            loserText[i].style.color = "#f2140c";
+        }
+        return
     }
     window.requestAnimationFrame(main) // method for performing animation and requests the browser calls a specified function to update animation before the next repaint. (callback function)
 
@@ -49,6 +52,15 @@ function draw() { // used to draw the board and pieces on the screen after the u
 // function for losing the game: (running off grid or into itself)
 function checkDeath() {
     gameOver = outsideGrid(getSnakeHead()) || snakeIntersection()
+}
+
+
+
+// add click event listener and function for restarting the game.
+document.getElementById("resetButton").addEventListener("click", reloadPage)
+
+function reloadPage() {
+    window.location.reload();
 }
 
 
