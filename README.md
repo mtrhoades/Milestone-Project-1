@@ -22,7 +22,7 @@ I have a friend that is further along than I am, in a coding bootcamp through Fl
 References: E.Kawula - https://github.com/kawulaed
 References in code: 
     1. spread operator in updateSnake() in snake.js line 25
-    2. spread operator is addSegments() in snake.js line 36
+    2. spread operator in addSegments() in snake.js line 36
     3. ignoreHead object in snake.js on lines 95 and 111.
 
 Other References:
