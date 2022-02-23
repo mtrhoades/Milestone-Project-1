@@ -7,14 +7,14 @@ import { outsideGrid } from './grid.js';
 
 // SELECTORS:
 let theLastRenderedTime = 0; // created to make equation for how fast the snake will go.
-const gameBoard = document.getElementById('grid-game-board')
+const gameBoard = document.getElementById('grid-game-board') // grabs the HTML element to display the grid.
 let gameOver = false;
 
 
 
 // GAME FUNCTIONS:
 function main(currentTime) { // made to repeat update() and draw()
-    if (gameOver) {
+    if (gameOver) { // made for when you lose the game.
         let loserText = document.querySelectorAll('#loserText');
         for (let i = 0; i < loserText.length; i++) {
             loserText[i].textContent = "YOU LOSE! ... click Restart game to play again";
@@ -22,20 +22,20 @@ function main(currentTime) { // made to repeat update() and draw()
         }
         return
     }
-    window.requestAnimationFrame(main) // method for performing animation and requests the browser calls a specified function to update animation before the next repaint. (callback function)
+    window.requestAnimationFrame(main) // method for performing animation and requests the browser calls a specified function to update animation before the next repaint and is called again below the function to actually start the loop.
 
     const timeSinceLastRender = (currentTime - theLastRenderedTime) / 1000 // is converted into seconds from miliseconds.
 
-    if (timeSinceLastRender < 1 / snakeSpeed) { // controls the speed of rendering the snake so it's not too fast. snakeSpeed is defined in snake.js
+    if (timeSinceLastRender < 1 / snakeSpeed) { // controls the speed of rendering the snake so it's not too fast. snakeSpeed is defined in snake.js, snakeSpeed is =  to how many cells on the grid it will move per second.
         return
     }  
-    theLastRenderedTime = currentTime // redeclares variable from above to equal currentTime.
+    theLastRenderedTime = currentTime // redeclares variable from above to upadate theLastRenderedTime to = currentTime every time.
     
     update(); 
     draw(); // since this is the "main" function, we have to call update() and draw() inside of it, to get ran over and over again.
 }
 
-window.requestAnimationFrame(main) // Needs to be called again globally.
+window.requestAnimationFrame(main) // Needs to be called again globally to start the loop for above.
 
 function update() { // used to update a list of other update functions all at once
     updateSnake(); 

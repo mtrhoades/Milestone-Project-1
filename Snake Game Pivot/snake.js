@@ -4,8 +4,8 @@ import { getMoveDirection } from "./move.js";
 
 
 // SELECTORS:
-export let snakeSpeed = 10; // used in equation for speed inside function main.
-let newSnakeSegments = 0
+export let snakeSpeed = 10; // used in equation for speed inside function main and shows how many cells in the grid the snake moves per second.
+let newSnakeSegments = 0;
 
 
 
@@ -20,21 +20,22 @@ export function updateSnake() { // called in the function main on game.js
 
     const moveDirectionInput = getMoveDirection(); // imported from input.js and set to a variable.
 
-    // make for loop to move snake body segments into the same place as the one before it, essentially following the head of the snake:
-    for (let i = snakeBody.length - 2; i >= 0; i--) {
-        snakeBody[i + 1] = { ...snakeBody[i] }
-    } // ***** EXPLAIN HOW THE REST OPERATOR HERE WORKS!****
+    // make for loop to move snake body segments into the same place as the one before it, essentially following the head of the snake: based on if the snake was in 3 segments, like after eating first piece of food.
+    for (let i = snakeBody.length - 2; i >= 0; i--) { // grabs the second to last element in snake; stops loop when i >= 0; subtract 1 from i each time. 
+        snakeBody[i + 1] = { ...snakeBody[i] } // grabs the last segment with snakeBody[i + 1]. {...snakeBody[i]} creates a new object spreading it out into a new one with i. it creates a duplicate and sets it to snakeBody[i +1]
+    } // ***** This whole part moves the snake forward each segment so it goes in place of the one before it each time.******
+    // *****Referenced by E.Kawula. *******
 
     // update head of snake based on where it is moving:
     snakeBody[0].x = moveDirectionInput.x + snakeBody[0].x
-    snakeBody[0].y = moveDirectionInput.y + snakeBody[0].y // moveDirectionInput is defined in input.js
+    snakeBody[0].y = moveDirectionInput.y + snakeBody[0].y // moveDirectionInput is defined above as function getMoveDirection().
 }
 
 function addSegments() { // create function for adding segments to the snake when it eats the food pieces.
     for (let i = 0; i < newSnakeSegments; i++) {
-        snakeBody.push({ ...snakeBody[snakeBody.length - 1] }) // taking last segment/element of snake and duplicating it onto the end of the snake to make more segments.
+        snakeBody.push({ ...snakeBody[snakeBody.length - 1] }) // taking last segment/element of snake and duplicating it (pushing) onto the end of the snake to make more segments.
+        // ***** Referenced by E.Kawula **********
         console.log(newSnakeSegments)
-
         checkForWin();
     }
     newSnakeSegments = 0 // make it so the snake stops making segments, not constantly creating more. (only the ones equal to the expansion rate everytime a piece of food is eaten.)
@@ -75,11 +76,11 @@ export function checkForWin() {
     }
 }
 
-export function drawSnake(gameBoard) { // called in the function main in game.js
+export function drawSnake(gameBoard) { // called in the function main in game.js, gameboard is passed in to be able to draw the snake onto it
     snakeBody.forEach(segment => {
-        // for each segment of the snake create a snake element, show position of start, and style it.
+        // for each segment of the snake create a snake element, show position of start, and style it. (loops through each segment)
         let snakeElement = document.createElement('div');
-        snakeElement.style.gridRowStart = segment.y;
+        snakeElement.style.gridRowStart = segment.y; // row is y and column is x because of the arrow key movements.
         snakeElement.style.gridColumnStart = segment.x;
         snakeElement.classList.add('rickSnake') // styled in styles.css file
         gameBoard.appendChild(snakeElement); // appends the snake to the gameBoard, and onto the page.
@@ -91,7 +92,7 @@ export function expandSnake(amount) { // called in the food.js file
 }
 
 // create function for getting snakes position for when dropping new food piece:
-export function onSnake(position, { ignoreHead = false } = {}) {
+export function onSnake(position, { ignoreHead = false } = {}) { // object of ingoreHead referenced by E.Kawula
     return snakeBody.some((segment, index) => { // using .some for any of our snake positions.
         if (ignoreHead && index === 0) return false;
         return equalPositions(segment, position) // if the two positions are exaclty the same as defined below in function equalPostions, than onSnake function will return true.
@@ -107,6 +108,6 @@ export function getSnakeHead() { // used in checkDeath function in game.js
 }
 
 export function snakeIntersection() { // created for when snake eats itself
-    return onSnake(snakeBody[0], { ignoreHead: true })
+    return onSnake(snakeBody[0], { ignoreHead: true }) // object ignoreHead referenced by E.Kawula
 }
 

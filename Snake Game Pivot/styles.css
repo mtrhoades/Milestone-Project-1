@@ -41,12 +41,10 @@ h2 {
 
 .rickSnake {
     background-color: yellowgreen;
-    /* border: .25vmin solid black; */
 }
 
 .mortyFood {
     background-color: brown;
-    /* border: .25vmin solid black; */
 }
 
 #mortyFoodImage {
