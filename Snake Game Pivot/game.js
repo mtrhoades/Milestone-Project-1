@@ -17,7 +17,7 @@ function main(currentTime) { // made to repeat update() and draw()
     if (gameOver) { // made for when you lose the game.
         let loserText = document.querySelectorAll('#loserText');
         for (let i = 0; i < loserText.length; i++) {
-            loserText[i].textContent = "YOU LOSE! ... click Restart game to play again";
+            loserText[i].textContent = "GAME OVER! ... click Restart game to play again";
             loserText[i].style.color = "#f2140c";
         }
         return
