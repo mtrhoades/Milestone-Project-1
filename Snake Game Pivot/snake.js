@@ -24,7 +24,7 @@ export function updateSnake() { // called in the function main on game.js
     for (let i = snakeBody.length - 2; i >= 0; i--) { // grabs the second to last element in snake; stops loop when i >= 0; subtract 1 from i each time. 
         snakeBody[i + 1] = { ...snakeBody[i] } // grabs the last segment with snakeBody[i + 1]. {...snakeBody[i]} creates a new object spreading it out into a new one with i. it creates a duplicate and sets it to snakeBody[i +1]
     } // ***** This whole part moves the snake forward each segment so it goes in place of the one before it each time.******
-    // *****Referenced by E.Kawula. *******
+    // *****Referenced by E.Kawula.*******
 
     // update head of snake based on where it is moving:
     snakeBody[0].x = moveDirectionInput.x + snakeBody[0].x
@@ -34,7 +34,7 @@ export function updateSnake() { // called in the function main on game.js
 function addSegments() { // create function for adding segments to the snake when it eats the food pieces.
     for (let i = 0; i < newSnakeSegments; i++) {
         snakeBody.push({ ...snakeBody[snakeBody.length - 1] }) // taking last segment/element of snake and duplicating it (pushing) onto the end of the snake to make more segments.
-        // ***** Referenced by E.Kawula **********
+        // *****Referenced by E.Kawula**********
         console.log(newSnakeSegments)
         checkForWin();
     }
@@ -92,7 +92,7 @@ export function expandSnake(amount) { // called in the food.js file
 }
 
 // create function for getting snakes position for when dropping new food piece:
-export function onSnake(position, { ignoreHead = false } = {}) { // object of ingoreHead referenced by E.Kawula
+export function onSnake(position, { ignoreHead = false } = {}) { // ****** object of ingoreHead referenced by E.Kawula******
     return snakeBody.some((segment, index) => { // using .some for any of our snake positions.
         if (ignoreHead && index === 0) return false;
         return equalPositions(segment, position) // if the two positions are exaclty the same as defined below in function equalPostions, than onSnake function will return true.
@@ -108,6 +108,6 @@ export function getSnakeHead() { // used in checkDeath function in game.js
 }
 
 export function snakeIntersection() { // created for when snake eats itself
-    return onSnake(snakeBody[0], { ignoreHead: true }) // object ignoreHead referenced by E.Kawula
+    return onSnake(snakeBody[0], { ignoreHead: true }) // *********object ignoreHead referenced by E.Kawula*********
 }
 
